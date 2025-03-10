@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Predyspozycji Zawodowych</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { max-width: 500px; margin: auto; padding: 20px; }
+        .question { display: none; }
+    </style>
+</head>
+<body>
+    <h2 class="text-center">Quiz Predyspozycji Zawodowych</h2>
+    <div id="quiz-container">
+        <div id="question-container"></div>
+        <button id="next-btn" class="btn btn-primary mt-3 w-100" onclick="nextQuestion()" disabled>Dalej</button>
+    </div>
+    <div id="result" class="mt-4 text-center" style="display: none;"></div>
+    
+    <script>
+        const questions = [
+            { question: "W klasie nauczyciel podzielił was na grupy, co robisz?", options: ["A", "B", "C", "D", "E", "F", "G"] },
+            { question: "Masz do wyboru książkę, film i podcast. Który temat wybierasz?", options: ["A", "B", "C", "D", "E", "F", "G"] },
+            { question: "Masz wolny dzień, jak go spędzasz?", options: ["A", "B", "C", "D", "E", "F", "G"] },
+            { question: "Gdybyś miał firmę, czym by się zajmowała?", options: ["A", "B", "C", "D", "E", "F", "G"] },
+            { question: "Co sprawia Ci największą satysfakcję?", options: ["A", "B", "C", "D", "E", "F", "G"] }
+        ];
+
+        const careerPaths = {
+            A: "Humanistyczny", B: "Matematyczno-Biologiczno-Chemiczny", C: "Ekonomista",
+            D: "Informatyk", E: "Budowlaniec", F: "Sprzedawca", G: "Językowy"
+        };
+
+        let currentQuestion = 0;
+        let scores = { A: 0, B: 0, C: 0, D: 0, E: 0, F: 0, G: 0 };
+        
+        function loadQuestion() {
+            document.getElementById("question-container").innerHTML = '';
+            const q = questions[currentQuestion];
+            let html = `<h4>${q.question}</h4>`;
+            q.options.forEach(option => {
+                html += `<button class='btn btn-outline-primary w-100 mt-2' onclick='selectAnswer("${option}")'>${option}</button>`;
+            });
+            document.getElementById("question-container").innerHTML = html;
+        }
+        
+        function selectAnswer(answer) {
+            scores[answer]++;
+            document.getElementById("next-btn").disabled = false;
+        }
+        
+        function nextQuestion() {
+            document.getElementById("next-btn").disabled = true;
+            currentQuestion++;
+            if (currentQuestion < questions.length) {
+                loadQuestion();
+            } else {
+                showResult();
+            }
+        }
+
+        function showResult() {
+            let topCareer = Object.keys(scores).reduce((a, b) => scores[a] > scores[b] ? a : b);
+            document.getElementById("quiz-container").style.display = "none";
+            document.getElementById("result").innerHTML = `<h3>Najlepszy kierunek dla Ciebie to: ${careerPaths[topCareer]}!</h3>`;
+            document.getElementById("result").style.display = "block";
+        }
+        
+        window.onload = loadQuestion;
+    </script>
+</body>
+</html>
