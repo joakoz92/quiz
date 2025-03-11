@@ -19,12 +19,12 @@
     <div id="result" class="mt-4 text-center" style="display: none;"></div>
     
     <script>
-         const questions = [
-            { question: "W klasie nauczyciel podzielił was na grupy, co robisz?", options: ["Organizuję pracę zespołu", "zajmuję się analizą problemu", "zarządzam budżetem projektu", "szukam nowinek technicznych, które pomogą", "testuję rozwiązania", "dbam o komunikację w zespole", "dbam o przedstawienie i zareklamowanie produktu"] },
-            { question: "Jaki temat filmu wybierzesz?", options: ["o wielkich wojnach to jest to!", "Jak nauka ratuje życie?", "Jak zarobić pierwszy milion?", "Jak sztuczna inteligencja zmienia świat?", "Budowa mostów i wielkie konstrukcje", "Jak sprzedać każdą rzecz?", "Jak nauczyć się nowego języka w 3 miesiące?"] },
-            { question: "Masz wolny dzień, jak go spędzasz?", options: ["czytam książkę o historii", "rozwiązuję zagadki logiczne", "Przeglądam ceny, analizuję rynek.", "tworzę coś na komputerze", "majsterkuję, składam modele", "spotykam się z ludźmi", "oglądam filmy w oryginalnym języku"] },
-            { question: "Gdybyś miał firmę, czym by się zajmowała?", options: ["organizowaniem eventów kulturalnych", "tworzyłaby nowoczesne leki", "inwestycjami", "tworzyłaby gry, lub strony internetowe", "budowanie domów, projektowanie przestrzeni", "sprzedaż produktów", "szkoła językowa, lub turystyczna"] },
-            { question: "Co sprawia Ci największą satysfakcję?", options: ["interpretacja i analiza tekstów", "udany eksperyment chemiczny, biologiczny", "organizowanie budżetu", "kodowanie, składanie komputerów i sieci", "widok własnego ukończonego projektu", "powiększanie grona znajomych", "wycieczki zagraniczne"] }
+          const questions = [
+            { question: "W klasie nauczyciel podzielił was na grupy, co robisz?", options: ["A.Organizuję pracę zespołu", "B. Zajmuję się analizą problemu", "C. zarządzam budżetem projektu", "D. szukam nowinek technicznych, które pomogą", "E. testuję rozwiązania", "F. dbam o komunikację w zespole", "G. dbam o przedstawienie i zareklamowanie produktu"] },
+            { question: "Jaki temat filmu wybierzesz?", options: ["A. o wielkich wojnach to jest to!", "B. Jak nauka ratuje życie?", "C. Jak zarobić pierwszy milion?", "D. Jak sztuczna inteligencja zmienia świat?", "E. Budowa mostów i wielkie konstrukcje", "F. Jak sprzedać każdą rzecz?", "G. Jak nauczyć się nowego języka w 3 miesiące?"]},
+            { question: "Masz wolny dzień, jak go spędzasz?", options: ["A. czytam książkę o historii", "B. rozwiązuję zagadki logiczne", "C. Przeglądam ceny, analizuję rynek.", "D. tworzę coś na komputerze", "E. majsterkuję, składam modele", "F. spotykam się z ludźmi", "G. oglądam filmy w oryginalnym języku"]},
+            { question: "Gdybyś miał firmę, czym by się zajmowała?", options: ["A. organizowaniem eventów kulturalnych", "B. tworzyłaby nowoczesne leki", "C. inwestycjami", "D. tworzyłaby gry, lub strony internetowe", "E. budowanie domów, projektowanie przestrzeni", "F. sprzedaż produktów", "G. szkoła językowa, lub firma turystyczna"]},
+            { question: "Co sprawia Ci największą satysfakcję?", options: ["A. interpretacja i analiza tekstów", "B. udany eksperyment chemiczny, biologiczny", "C. organizowanie budżetu", "D. kodowanie, składanie komputerów i sieci", "E. widok własnego ukończonego projektu", "F. powiększanie grona znajomych", "G. wycieczki zagraniczne"]}
         ];
 
         const careerPaths = {
@@ -34,13 +34,13 @@
 
         let currentQuestion = 0;
         let scores = { A: 0, B: 0, C: 0, D: 0, E: 0, F: 0, G: 0 };
-        
+       // let numer =-1
         function loadQuestion() {
             document.getElementById("question-container").innerHTML = '';
             const q = questions[currentQuestion];
             let html = `<h4>${q.question}</h4>`;
             q.options.forEach(option => {
-                html += `<button class='btn btn-outline-primary w-100 mt-2' onclick='selectAnswer("${option}")'>${option}</button>`;
+                html += `<button class='btn btn-outline-primary w-100 mt-2' onclick='selectAnswer("${option.substring(0,1)}")'>${option}</button>`;
             });
             document.getElementById("question-container").innerHTML = html;
         }
