@@ -7,76 +7,127 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body { max-width: 500px; margin: auto; padding: 20px; }
-        .question { display: none; }
         img{
-            width: 25px;
-            height: 25px;
+            width: 50px;
+            height: 50px;
         }
     </style>
 </head>
 <body>
-    <h2 class="text-center">Profiluj się&#127979;</h2>
-    <div id="quiz-container">
-        <div id="question-container"></div>
-        <button id="next-btn" class="btn btn-primary mt-3 w-100" onclick="nextQuestion()" disabled>Dalej</button>
-    </div>
-    <div id="result" class="mt-4 text-center" style="display: none;"></div>
-    
-    <script>
-          const questions = [
-            { question: "W klasie nauczyciel podzielił was na grupy, co robisz?", options: ["A.Organizuję pracę zespołu&#8986;", "B. Zajmuję się analizą problemu&#128269;", "C. zarządzam budżetem projektu&#128176;", "D. szukam nowinek technicznych, które pomogą w rozwiązaniu problemu&#127760;", "E. testuję rozwiązania&#128736;", "F. dbam o komunikację w zespole&#128222;", "G. dbam o przedstawienie i zareklamowanie produktu&#128227;"] },
-            { question: "Jaki temat filmu wybierzesz?", options: ["A. o wielkich wojnach to jest to!&#9876;", "B. Jak nauka ratuje życie?&#128300;", "C. Jak zarobić pierwszy milion?&#128181;", "D. Jak sztuczna inteligencja zmienia świat?&#129504;", "E. Budowa mostów i wielkie konstrukcje&#127959;", "F. Jak sprzedać każdą rzecz?&#128722;", "G. Jak nauczyć się nowego języka w 3 miesiące?&#128292;"]},
-            { question: "Masz wolny dzień, jak go spędzasz?", options: ["A. czytam książkę o historii&#128218;", "B. rozwiązuję zagadki logiczne&#129513;", "C. Przeglądam ceny, analizuję rynek.&#128200;", "D. tworzę coś na komputerze&#128105", "E. majsterkuję, składam modele&#128295;", "F. spotykam się z ludźmi&#128075;", "G. oglądam filmy w oryginalnym języku&#127917;"]},
-            { question: "Gdybyś miał firmę, czym by się zajmowała?", options: ["A. organizowaniem eventów kulturalnych&#127917;", "B. tworzeniem nowoczesnych leków&#128138;", "C. inwestycjami&#128188;", "D. tworzyłaby gry, lub strony internetowe&#127918;", "E. budowanie domów, projektowanie przestrzeni&#128209;", "F. sprzedaż produktów&#128722;", "G. szkoła językowa&#128105, lub firma turystyczna&#128640;"]},
-            { question: "Co sprawia Ci największą satysfakcję?", options: ["A. interpretacja i analiza tekstów&#129488;", "B. udany eksperyment chemiczny, biologiczny&#129299;", "C. organizowanie budżetu&#128181;", "D. kodowanie, składanie komputerów i sieci&#128399;", "E. widok własnego ukończonego projektu&#127939;", "F. powiększanie grona znajomych&#127881;", "G. wycieczki zagraniczne&#127956;"]},
-            { question: "Jakie miejsce pracy ci się marzy?", options: ["A. Redakcja lub kancelaria&#9878;", "B. Laboratorium&#127973;", "C. Biuro rachunkowe lub korporacja&#127974;", "D. Biuro IT&#127974;", "E. Biuro projektowe&#9999;", "F. Sklep, własny biznes&#127976;", "G. Tłumacz, międzynarodowa firma&#9997;"]},
-            { question: "Gdybyś miał/a wystapić publicznie, to byłoby to...", options: ["A. Debata&#128227;", "B. Przedstawienie wyników badań &#129488;", "C. przedstawienie biznesplanu&#128188;", "D. zaprezentowanie nowej aplikacji&#128242;", "E zaprezenotowanie projektu budowlanego.&#129705; ", "F. reklama produktu&#128165;", "G. przemówienie po angielsku&#127911;&#127468;"]},
-            { question: "Jaki przedmiot najbardziej lubisz?", options: ["A. J.polski&#127912;", "B. Biologia, Chemia&#128300;", "C. Matematyka&#10135;&#128396;", "D. Informatyka&#128187;", "E. technika &#128397;", "F. Nie mam ulubionego przedmiotu&#128533;", "G. Języki obce&#127760;"]},
-            { question: "Gdybyś miał/a wybrać kurs to jaki?", options: ["A. Warsztaty dziennikarskie&#128240;", "B. kurs pierwszej pomocy&#128657;", "C. Zarządzanie finansami&#128457;", "D. Programowanie&#128190;", "E. projektowanie budynków w 3D&#127963;", "F. skuteczna sprzedaż i marketing&#128722;", "G. kurs językowy za granicą&#127760;"]},
-            { question: "Jakie miejsce chciałbyś/abyś odiwedzić", options: ["A. Paryż &#128252;", "B. Amazonia&#127793;", "C. Nowy Jork&#128275;", "D. Dolinę Krzemową&#128640;", "E. Dubaj&#128142;", "F.Tokio&#127965;", "G. Londyn lub Madryt&#127917;"]}
-        ];
 
-        const careerPaths = {
-            A: "Humanistyczny", B: "Matematyczno-Biologiczno-Chemiczny", C: "Ekonomista",
-            D: "Informatyk", E: "Budowlaniec", F: "Sprzedawca", G: "Językowy"
-        };
+<h2 class="text-center">Profiluj się&#127979;</h2>
 
-        let currentQuestion = 0;
-        let scores = { A: 0, B: 0, C: 0, D: 0, E: 0, F: 0, G: 0 };
-       // let numer =-1
-        function loadQuestion() {
-            document.getElementById("question-container").innerHTML = '';
-            const q = questions[currentQuestion];
-            let html = `<h4>${q.question}</h4>`;
-            q.options.forEach(option => {
-                html += `<button class='btn btn-outline-primary w-100 mt-2' onclick='selectAnswer("${option.substring(0,1)}")'>${option}</button>`;
-            });
-            document.getElementById("question-container").innerHTML = html;
-        }
-        
-        function selectAnswer(answer) {
-            scores[answer]++;
-            document.getElementById("next-btn").disabled = false;
-        }
-        
-        function nextQuestion() {
-            document.getElementById("next-btn").disabled = true;
-            currentQuestion++;
-            if (currentQuestion < questions.length) {
-                loadQuestion();
-            } else {
-                showResult();
-            }
-        }
+<div id="quiz-container">
+    <div id="question-container"></div>
+    <button id="next-btn" class="btn btn-primary mt-3 w-100" onclick="nextQuestion()" disabled>Dalej</button>
+</div>
 
-        function showResult() {
-            let topCareer = Object.keys(scores).reduce((a, b) => scores[a] > scores[b] ? a : b);
-            document.getElementById("quiz-container").style.display = "none";
-            document.getElementById("result").innerHTML = `<h3>Najlepszy kierunek dla Ciebie to: ${careerPaths[topCareer]}!</h3><h4>Zapraszamy na Rutki<img src='xd2.png'></h4>`;
-            document.getElementById("result").style.display = "block";
-        }
-        
-        window.onload = loadQuestion;
-    </script>
+<div id="result" class="mt-4 text-center" style="display: none;"></div>
+
+<script>
+const questions = [
+    { question: "1/10 W klasie nauczyciel podzielił was na grupy, co robisz?", options: ["A. Analizuję dane i mapy, planuję działania 🌍", "B. Zajmuję się analizą problemu&#128269;", "C. zarządzam budżetem projektu&#128176;", "D. szukam nowinek technicznych, które pomogą w rozwiązaniu problemu&#127760;", "E. testuję rozwiązania&#128736;", "F. dbam o komunikację w zespole&#128222;", "G. dbam o przedstawienie i zareklamowanie produktu&#128227;","H. Zajmuję się instalacją i podłączeniem sprzętu 🔌 "] },
+    { question: "2/10 Jaki temat filmu wybierzesz?", options: ["A. Zmiany klimatu i świat 🌍", "B. Jak nauka ratuje życie?&#128300;", "C. Jak zarobić pierwszy milion?&#128181;", "D. Jak sztuczna inteligencja zmienia świat?&#129504;", "E. Budowa mostów i wielkie konstrukcje&#127959;", "F. Jak sprzedać każdą rzecz?&#128722;", "G. Jak nauczyć się nowego języka w 3 miesiące?&#128292;","H. Pod napięciem ⚡"]},
+    { question: "3/10 Masz wolny dzień, jak go spędzasz?", options: ["A. Oglądam mapy, podróże, ciekawostki geograficzne 🗺", "B. rozwiązuję zagadki logiczne&#129513;", "C. Przeglądam ceny, analizuję rynek.&#128200;", "D. tworzę coś na komputerze&#128105;", "E. majsterkuję, składam modele&#128295;", "F. spotykam się z ludźmi&#128075;", "G. oglądam filmy w oryginalnym języku&#127917;","H. Wszędzie robię konstrukcje oświetleniowe💡"]},
+    { question: "4/10 Gdybyś miał firmę, czym by się zajmowała?", options: ["A. Analiza danych, logistyka, transport 🌍", "B. tworzeniem nowoczesnych leków&#128138;", "C. inwestycjami&#128188;", "D. tworzyłaby gry, lub strony internetowe&#127918;", "E. budowanie domów, projektowanie przestrzeni&#128209;", "F. sprzedaż produktów&#128722;", "G. szkoła językowa&#128105;, lub firma turystyczna&#128640;","H. Ekologiczna energia🌱⚡"]},
+    { question: "5/10 Co sprawia Ci największą satysfakcję?", options: ["A. Analiza danych i zależności", "B. udany eksperyment chemiczny, biologiczny&#129299;", "C. organizowanie budżetu&#128181;", "D. kodowanie, składanie komputerów i sieci&#128399;", "E. widok własnego ukończonego projektu&#127939;", "F. powiększanie grona znajomych&#127881;", "G. wycieczki zagraniczne&#127956;","H. kiedy wszystko świeci💡"]},
+    { question: "6/10 Jakie miejsce pracy ci się marzy?", options: ["A. Biuro analityczne / logistyczne 🌍", "B. Laboratorium&#127973;", "C. Biuro rachunkowe lub korporacja&#127974;", "D. Biuro IT&#127974;", "E. Biuro projektowe&#9999;", "F. Sklep, własny biznes&#127976;", "G. Tłumacz, międzynarodowa firma&#9997;","H.Firma energetyczna 💡"]},
+    { question: "7/10 Gdybyś miał/a wystapić publicznie, to byłoby to...", options: ["A. Prezentacja o zmianach klimatu 🌍", "B. Przedstawienie wyników badań &#129488;", "C. przedstawienie biznesplanu&#128188;", "D. zaprezentowanie nowej aplikacji&#128242;", "E. zaprezentowanie projektu budowlanego&#129705;", "F. reklama produktu&#128165;", "G. przemówienie po angielsku&#127911;&#127468;","H. debata o żródłach energii🔋⚡"]},
+    { question: "8/10 Jaki przedmiot lub dział przedmiotu najbardziej lubisz?", options: ["A.Geografia🌍;", "B. Biologia, Chemia&#128300;", "C. Matematyka&#10135;&#128396;", "D. Informatyka&#128187;", "E. rysunek techniczny &#128397;", "F. Nie mam ulubionego przedmiotu&#128533;", "G. Języki obce&#127760;","H. Technika"]},
+    { question: "9/10 Gdybyś miał/a wybrać kurs to jaki?", options: ["A. GIS / analiza danych 🌍", "B. kurs pierwszej pomocy&#128657;", "C. Zarządzanie finansami&#128457;", "D. Programowanie&#128190;", "E. projektowanie budynków w 3D&#127963;", "F. skuteczna sprzedaż i marketing&#128722;", "G. kurs językowy za granicą&#127760;","H. Instalacje elektryczne ⚡  "]},
+    { question: "10/10 Jakie miejsce chciałbyś/abyś odwiedzić", options: ["A. Islandia 🌋", "B. Amazonia&#127793;", "C. Nowy Jork&#128275;", "D. Dolinę Krzemową&#128640;", "E. Dubaj&#128142;", "F. Tokio&#127965;", "G. Londyn lub Madryt&#127917;","H: Elektrownię⚡"]}
+];
+
+const careerPaths = {
+    A: "Matematyczno-geograficzny",
+    B: "Biologiczno-Chemiczny",
+    C: "Ekonomista",
+    D: "Informatyk",
+    E: "Budowlaniec",
+    F: "Sprzedawca",
+    G: "Językowy",
+    H: "Elektryk"
+};
+
+let currentQuestion = 0;
+let scores = { A: 0, B: 0, C: 0, D: 0, E: 0, F: 0, G: 0, H:0 };
+let selectedAnswer = null;
+
+function loadQuestion() {
+    document.getElementById("question-container").innerHTML = '';
+    const q = questions[currentQuestion];
+
+    let html = `<h4>${q.question}</h4>`;
+
+    q.options.forEach(option => {
+        html += `
+            <button class="btn btn-outline-primary w-100 mt-2 option-btn"
+                onclick="selectAnswer(this, '${option[0]}')">
+                ${option}
+            </button>
+        `;
+    });
+
+    document.getElementById("question-container").innerHTML = html;
+}
+
+function selectAnswer(button, answer) {
+    document.querySelectorAll(".option-btn").forEach(btn => {
+        btn.classList.remove("btn-primary");
+        btn.classList.add("btn-outline-primary");
+    });
+
+    button.classList.remove("btn-outline-primary");
+    button.classList.add("btn-primary");
+
+    selectedAnswer = answer;
+    document.getElementById("next-btn").disabled = false;
+}
+
+function nextQuestion() {
+    if (selectedAnswer) {
+        scores[selectedAnswer]++;
+    }
+
+    selectedAnswer = null;
+    document.getElementById("next-btn").disabled = true;
+
+    currentQuestion++;
+
+    if (currentQuestion < questions.length) {
+        loadQuestion();
+    } else {
+        showResult();
+    }
+}
+
+function showResult() {
+    let maxScore = Math.max(...Object.values(scores));
+    let topCareers = Object.keys(scores).filter(key => scores[key] === maxScore);
+
+    document.getElementById("quiz-container").style.display = "none";
+
+    if (topCareers.length === 1) {
+        document.getElementById("result").innerHTML = `
+            <h3>Najlepszy kierunek dla Ciebie to: ${careerPaths[topCareers[0]]}!</h3>
+            <h4><img src='pobrane.png'>Zapraszamy na Rutki! </h4>
+        `;
+    } else {
+        let results = topCareers.map(c => careerPaths[c]).join(",<br> ");
+
+        document.getElementById("result").innerHTML = `
+            <h3>Pasuje do Ciebie kilka kierunków:</h3>
+            <h4>${results}</h4>
+            <p>Masz wszechstronne zainteresowania 👍</p>
+            <h4><img src='pobrane.png'>Zapraszamy na Rutki! </h4>
+        `;
+    }
+
+    document.getElementById("result").style.display = "block";
+}
+
+window.onload = loadQuestion;
+</script>
+
 </body>
 </html>
